@@ -942,17 +942,36 @@ class _Scene_P_1State extends State<Scene_P_1> {
                                     ),
                                     child: Center(
                                       child: TextButton(
-                                        onPressed: () {
-                                          FutureBuilder(
-                                            // TODO
-                                            future: APIService.PostJob(1, globalContent, globalMemberId, globalSilverPhoneNumber, globalRequestAddress),
-                                            builder: (context, snapshot) {
-                                              if (snapshot.hasData) {
-                                                return Container();
-                                              }
-                                              return Container();
-                                            },
+                                        onPressed: () async {
+                                          APIService.PostJob(1, globalContent, globalMemberId, globalSilverPhoneNumber, globalRequestAddress);
+                                          await showDialog<void>(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                          return AlertDialog(
+                                          title: const Text('Thanks!'),
+                                          content: const Text('등록되었습니다.'),
+                                          actions: <Widget>[
+                                          TextButton(
+                                          onPressed: () {
+                                            Navigator.popUntil(
+                                                context, ModalRoute.withName("/"));
+                                          },
+                                          child: const Text('OK'),
+                                          ),
+                                          ],
                                           );
+                                          },
+                                          );
+                                          // FutureBuilder(
+                                          //   // TODO
+                                          //   future: APIService.PostJob(1, globalContent, globalMemberId, globalSilverPhoneNumber, globalRequestAddress),
+                                          //   builder: (context, snapshot) {
+                                          //     if (snapshot.hasData) {
+                                          //       return Container();
+                                          //     }
+                                          //     return Container();
+                                          //   },
+                                          // );
                                           // Navigator.popUntil(
                                           //   context, ModalRoute.withName("/"));
                                         },
