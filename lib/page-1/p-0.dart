@@ -89,19 +89,21 @@ class Scene_P_0 extends StatelessWidget {
                     ),
                     child: FutureBuilder(
                       // TODO
-                      future: APIService.GetCategory(),
+                      future: APIService.GetJob(hongId),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return Container(
                             child: Text(
-                              snapshot.data!.message,
+                                    "요청 내용 : " + snapshot.data!.content + "\n " +
+                                    "주소 : " + snapshot.data!.requestAddress + "\n " +
+                                    "전화번호 : " + snapshot.data!.silverPhoneNumber,
                               textAlign: TextAlign.center,
                               style: SafeGoogleFont (
                                 'Inter',
                                 fontSize: 24*ffem,
                                 fontWeight: FontWeight.w700,
-                                height: 1.25*ffem/fem,
-                                letterSpacing: -0.48*fem,
+                                // height: 1.25*ffem/fem,
+                                // letterSpacing: -0.48*fem,
                                 color: Color(0xff1c1b1f),
                               ),
                             ),
@@ -177,7 +179,7 @@ class Scene_P_0 extends StatelessWidget {
                                   );
                                 },
                                 child: Text(
-                                  '배정내역 조회하기',
+                                  '추가 요청 내역 조회하기',
                                   textAlign: TextAlign.center,
                                   style: SafeGoogleFont (
                                     'ABeeZee',

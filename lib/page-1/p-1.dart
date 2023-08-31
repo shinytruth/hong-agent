@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/API/APIService.dart';
 import 'package:myapp/utils.dart';
 import 'package:myapp/navigator.dart';
 
@@ -14,6 +15,9 @@ class CallData
 
   CallData(this.content, this.time, this.address, this.price);
 }
+
+// unique
+int hongId = 1;
 
 String globalContent = "";
 String globalAddress=  "";
@@ -31,13 +35,13 @@ class _Scene_P_1State extends State<Scene_P_1> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
-    // TODO : server data
-    List<CallData> callData = [];
-    callData.add(CallData("test1", "time1", "서울시", "7,000원 "));
-    callData.add(CallData("test2", "time2", "서울시", "5,000원 "));
-    callData.add(CallData("test3", "time3", "서울시", "4,000원 "));
-    callData.add(CallData("test4", "time4", "서울시", "5,000원 "));
-    callData.add(CallData("test5", "time5", "울산시", "6,000원 "));
+    // // TODO : server data
+    // List<CallData> callData = [];
+    // callData.add(CallData("test1", "time1", "서울시", "7,000원 "));
+    // callData.add(CallData("test2", "time2", "서울시", "5,000원 "));
+    // callData.add(CallData("test3", "time3", "서울시", "4,000원 "));
+    // callData.add(CallData("test4", "time4", "서울시", "5,000원 "));
+    // callData.add(CallData("test5", "time5", "울산시", "6,000원 "));
 
     return Scaffold(
       body: SafeArea(
@@ -101,7 +105,7 @@ class _Scene_P_1State extends State<Scene_P_1> {
                         // height: double.infinity,
                         child: Center(
                           child: Text(
-                            '배정 내역 조회',
+                            '요청 리스트 내역 조회',
                             textAlign: TextAlign.center,
                             style: SafeGoogleFont (
                               'Inter',
@@ -247,110 +251,226 @@ class _Scene_P_1State extends State<Scene_P_1> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: double.infinity,
-                                  // height:double.,
-                                  height: 120,
-                                  child: ListView.builder(
-                                    itemBuilder: (builder, index) {
-                                      return Container(
-                                        child: InkWell(
-                                          onTap: () {
-                                            globalContent = callData[index].content;
-                                            globalAddress = callData[index].address;
-                                            globalPrice = callData[index].price;
+                                Container(
+                                  child: FutureBuilder(
+                                    future: APIService.GetHong(),
+                                    builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                                      if (snapshot.hasData) {
+                                        return SizedBox(
+                                          width: double.infinity,
+                                          // height:double.,
+                                          height: 120,
+                                          child: ListView.builder(
+                                            itemBuilder: (builder, index) {
+                                              return Container(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    globalContent = snapshot.data[index].content;
+                                                    globalAddress = snapshot.data[index].requestAddress;
+                                                    // globalPrice = snapshot.data[index].price;
 
-                                            setState(() {
+                                                    setState(() {
 
-                                            });
+                                                    });
 
-                                            // print(globalContent + " " + globalAddress + " " + globalPrice);
-                                          },
-                                          child: Container(
-                                            // tablerowdefaulteqo (7:2254)
-                                            width: double.infinity,
-                                            height: 37*fem,
-                                            decoration: const BoxDecoration (
-                                              color: Color(0xffffffff),
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  // tablecellnBK (I7:2255;1:21)
-                                                  // padding: EdgeInsets.fromLTRB(112.5*fem, 7*fem, 112.5*fem, 7*fem),
-                                                  width: 250*fem,
-                                                  height: 270*fem,
-                                                  decoration: BoxDecoration (
-                                                    border: Border.all(color: const Color(0xffb8b8b8)),
-                                                  ),
+                                                    // print(globalContent + " " + globalAddress + " " + globalPrice);
+                                                  },
                                                   child: Container(
-                                                    // contentJfT (I7:2255;1:21;1:16)
-                                                    // margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 233*fem),
+                                                    // tablerowdefaulteqo (7:2254)
                                                     width: double.infinity,
-                                                    height: 23*fem,
-                                                    child: Center(
-                                                      child: Text(
-                                                        callData[index].content,
-                                                        textAlign: TextAlign.center,
-                                                        style: SafeGoogleFont (
-                                                          'Fira Code',
-                                                          fontSize: 15*ffem,
-                                                          fontWeight: FontWeight.w300,
-                                                          height: 1.5*ffem/fem,
-                                                          letterSpacing: -0.9*fem,
-                                                          color: const Color(0xff000000),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  // tablecellymb (I7:2257;1:21)
-                                                  // padding: EdgeInsets.fromLTRB(42.5*fem, 7*fem, 42.5*fem, 7*fem),
-                                                  width: 150*fem,
-                                                  height: 270*fem,
-                                                  decoration: BoxDecoration (
-                                                    border: Border.all(color: const Color(0xffb8b8b8)),
-                                                  ),
-                                                  child: Container(
-                                                    // contentu9T (I7:2257;1:21;1:16)
-                                                    // margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 233*fem),
-                                                    width: double.infinity,
-                                                    height: 23*fem,
-                                                    child: Center(
-                                                      child: Text(
-                                                        callData[index].time,
-                                                        textAlign: TextAlign.center,
-                                                        style: SafeGoogleFont (
-                                                          'Fira Code',
-                                                          fontSize: 15*ffem,
-                                                          fontWeight: FontWeight.w300,
-                                                          height: 1.5*ffem/fem,
-                                                          letterSpacing: -0.9*fem,
-                                                          color: const Color(0xff000000),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  // frame1PaR (7:2258)
-                                                  width: 1*fem,
-                                                  height: 37*fem,
-                                                  child: Image.asset(
-                                                    'assets/page-1/images/frame-1-vD7.png',
-                                                    width: 1*fem,
                                                     height: 37*fem,
+                                                    decoration: const BoxDecoration (
+                                                      color: Color(0xffffffff),
+                                                    ),
+                                                    child: Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          // tablecellnBK (I7:2255;1:21)
+                                                          // padding: EdgeInsets.fromLTRB(112.5*fem, 7*fem, 112.5*fem, 7*fem),
+                                                          width: 250*fem,
+                                                          height: 270*fem,
+                                                          decoration: BoxDecoration (
+                                                            border: Border.all(color: const Color(0xffb8b8b8)),
+                                                          ),
+                                                          child: Container(
+                                                            // contentJfT (I7:2255;1:21;1:16)
+                                                            // margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 233*fem),
+                                                            width: double.infinity,
+                                                            height: 23*fem,
+                                                            child: Center(
+                                                              child: Text(
+                                                                snapshot.data[index].content,
+                                                                textAlign: TextAlign.center,
+                                                                style: SafeGoogleFont (
+                                                                  'Fira Code',
+                                                                  fontSize: 15*ffem,
+                                                                  fontWeight: FontWeight.w300,
+                                                                  height: 1.5*ffem/fem,
+                                                                  letterSpacing: -0.9*fem,
+                                                                  color: const Color(0xff000000),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          // tablecellymb (I7:2257;1:21)
+                                                          // padding: EdgeInsets.fromLTRB(42.5*fem, 7*fem, 42.5*fem, 7*fem),
+                                                          width: 150*fem,
+                                                          height: 270*fem,
+                                                          decoration: BoxDecoration (
+                                                            border: Border.all(color: const Color(0xffb8b8b8)),
+                                                          ),
+                                                          child: Container(
+                                                            // contentu9T (I7:2257;1:21;1:16)
+                                                            // margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 233*fem),
+                                                            width: double.infinity,
+                                                            height: 23*fem,
+                                                            child: Center(
+                                                              child: Text(
+                                                                snapshot.data[index]?.requestTime??"",
+                                                                textAlign: TextAlign.center,
+                                                                style: SafeGoogleFont (
+                                                                  'Fira Code',
+                                                                  fontSize: 15*ffem,
+                                                                  fontWeight: FontWeight.w300,
+                                                                  height: 1.5*ffem/fem,
+                                                                  letterSpacing: -0.9*fem,
+                                                                  color: const Color(0xff000000),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          // frame1PaR (7:2258)
+                                                          width: 1*fem,
+                                                          height: 37*fem,
+                                                          child: Image.asset(
+                                                            'assets/page-1/images/frame-1-vD7.png',
+                                                            width: 1*fem,
+                                                            height: 37*fem,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              );
+                                            },
+                                            itemCount: snapshot.data.length,
                                           ),
-                                        ),
-                                      );
+                                        );
+                                      }
+                                      return Container();
                                     },
-                                    itemCount: callData.length,
+                                    // child: SizedBox(
+                                    //   width: double.infinity,
+                                    //   // height:double.,
+                                    //   height: 120,
+                                    //   child: ListView.builder(
+                                    //     itemBuilder: (builder, index) {
+                                    //       return Container(
+                                    //         child: InkWell(
+                                    //           onTap: () {
+                                    //             globalContent = callData[index].content;
+                                    //             globalAddress = callData[index].address;
+                                    //             globalPrice = callData[index].price;
+                                    //
+                                    //             setState(() {
+                                    //
+                                    //             });
+                                    //
+                                    //             // print(globalContent + " " + globalAddress + " " + globalPrice);
+                                    //           },
+                                    //           child: Container(
+                                    //             // tablerowdefaulteqo (7:2254)
+                                    //             width: double.infinity,
+                                    //             height: 37*fem,
+                                    //             decoration: const BoxDecoration (
+                                    //               color: Color(0xffffffff),
+                                    //             ),
+                                    //             child: Row(
+                                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                                    //               children: [
+                                    //                 Container(
+                                    //                   // tablecellnBK (I7:2255;1:21)
+                                    //                   // padding: EdgeInsets.fromLTRB(112.5*fem, 7*fem, 112.5*fem, 7*fem),
+                                    //                   width: 250*fem,
+                                    //                   height: 270*fem,
+                                    //                   decoration: BoxDecoration (
+                                    //                     border: Border.all(color: const Color(0xffb8b8b8)),
+                                    //                   ),
+                                    //                   child: Container(
+                                    //                     // contentJfT (I7:2255;1:21;1:16)
+                                    //                     // margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 233*fem),
+                                    //                     width: double.infinity,
+                                    //                     height: 23*fem,
+                                    //                     child: Center(
+                                    //                       child: Text(
+                                    //                         callData[index].content,
+                                    //                         textAlign: TextAlign.center,
+                                    //                         style: SafeGoogleFont (
+                                    //                           'Fira Code',
+                                    //                           fontSize: 15*ffem,
+                                    //                           fontWeight: FontWeight.w300,
+                                    //                           height: 1.5*ffem/fem,
+                                    //                           letterSpacing: -0.9*fem,
+                                    //                           color: const Color(0xff000000),
+                                    //                         ),
+                                    //                       ),
+                                    //                     ),
+                                    //                   ),
+                                    //                 ),
+                                    //                 Container(
+                                    //                   // tablecellymb (I7:2257;1:21)
+                                    //                   // padding: EdgeInsets.fromLTRB(42.5*fem, 7*fem, 42.5*fem, 7*fem),
+                                    //                   width: 150*fem,
+                                    //                   height: 270*fem,
+                                    //                   decoration: BoxDecoration (
+                                    //                     border: Border.all(color: const Color(0xffb8b8b8)),
+                                    //                   ),
+                                    //                   child: Container(
+                                    //                     // contentu9T (I7:2257;1:21;1:16)
+                                    //                     // margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 233*fem),
+                                    //                     width: double.infinity,
+                                    //                     height: 23*fem,
+                                    //                     child: Center(
+                                    //                       child: Text(
+                                    //                         callData[index].time,
+                                    //                         textAlign: TextAlign.center,
+                                    //                         style: SafeGoogleFont (
+                                    //                           'Fira Code',
+                                    //                           fontSize: 15*ffem,
+                                    //                           fontWeight: FontWeight.w300,
+                                    //                           height: 1.5*ffem/fem,
+                                    //                           letterSpacing: -0.9*fem,
+                                    //                           color: const Color(0xff000000),
+                                    //                         ),
+                                    //                       ),
+                                    //                     ),
+                                    //                   ),
+                                    //                 ),
+                                    //                 Container(
+                                    //                   // frame1PaR (7:2258)
+                                    //                   width: 1*fem,
+                                    //                   height: 37*fem,
+                                    //                   child: Image.asset(
+                                    //                     'assets/page-1/images/frame-1-vD7.png',
+                                    //                     width: 1*fem,
+                                    //                     height: 37*fem,
+                                    //                   ),
+                                    //                 ),
+                                    //               ],
+                                    //             ),
+                                    //           ),
+                                    //         ),
+                                    //       );
+                                    //     },
+                                    //     itemCount: callData.length,
+                                    //   ),
+                                    // ),
                                   ),
                                 ),
                                 // Container(
@@ -734,7 +854,7 @@ class _Scene_P_1State extends State<Scene_P_1> {
                                     borderRadius: BorderRadius.circular(20*fem),
                                   ),
                                   child: Text(
-                                    globalPrice,
+                                    '5,000 원',
                                     style: SafeGoogleFont (
                                       'ABeeZee',
                                       fontSize: 20*ffem,

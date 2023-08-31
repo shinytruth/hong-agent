@@ -9,8 +9,8 @@ class APIService {
       "http://ec2-3-27-181-63.ap-southeast-2.compute.amazonaws.com:8080";
   static const String category = "category";
   static const String jobs = "jobs";
+  static const String hong = "hong";
 
-  static const String apiInitData = "hong/{hongId}";
   static const String apiMain = "app/main";
   static const String contentDetail = "content/detail";
 
@@ -61,27 +61,69 @@ class APIService {
       // final jsonData = jsonDecode(response.body);
       Jobs jobs = Jobs.fromJson(response.data);
 
-      // test
-      Job job = GetJob(jobs.data[0].jobId) as Job;
-      print(job.content);
       return jobs;
     }
 
     throw Error();
   }
 
+  /// hondId : unique
   static Future<Job> GetJob(int hongId) async {
     // final url = Uri.parse('$baseUrl/$jobs');
     // final response = await http.get(url, headers: header);
     // http://ec2-3-27-181-63.ap-southeast-2.compute.amazonaws.com:8080/jobs/hong/{hongId}
 
     Dio dio = Dio();
-    final response = await dio.get('$baseUrl/$jobs/hong/$hongId');
-
+    final response = await dio.get('$baseUrl/$jobs/$hong/$hongId');
+    // print(response.statusCode);
     if (response.statusCode == 200) {
+      // print(response.data);
       // final jsonData = jsonDecode(response.body);
-      Job job = Job.fromJson(response.data);
+      Job job = Job.fromJson(response.data[0]);
+      // print(response.statusCode);
+      // print(job.hongName);
       return job;
+    }
+
+    throw Error();
+  }
+
+  static Future<List<Hong>> GetHong() async {
+    // final url = Uri.parse('$baseUrl/$jobs');
+    // final response = await http.get(url, headers: header);
+    // http://ec2-3-27-181-63.ap-southeast-2.compute.amazonaws.com:8080/jobs/hong/{hongId}
+
+    Dio dio = Dio();
+    final response = await dio.get('$baseUrl/$jobs/$hong');
+    // print(response.statusCode);
+    if (response.statusCode == 200) {
+      // print(json.decode(response.data.map((x) => print(x))));
+      print(response.data);
+      // print(response.data[1]);
+      // print(response.data[2]);
+      // json.decode(str)
+      // final jsonData = jsonDecode(response.body);
+      // print("response.data : ${response.data}");
+      //
+      // var test = Hong.fromJson(response.data[2]);
+      // print("test");
+      // print(test.hongName);
+      // print(test.requestAddress);
+      // print(test.jobId);
+      // print(test.categoryName);
+      // var myMap = response.data as List<dynamic>;
+      //
+      // var list = myMap.map((x) => Hong.fromJson(x));
+      print("list2");
+      //
+      //     print(list);
+      List<Hong> hongList = List<Hong>.from(response.data.map((x) => Hong.fromJson(x)));
+      // List<Hong> hongList = hongFromJson(response.data);
+      // print("test");
+      // Hong hong = Hong.fromJson(response.data[0]);
+
+      print(hongList.length);
+      return hongList;
     }
 
     throw Error();

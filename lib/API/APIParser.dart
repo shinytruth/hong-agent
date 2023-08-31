@@ -192,4 +192,64 @@ class Job {
   };
 }
 
+List<Hong> hongFromJson(String str) => List<Hong>.from(json.decode(str).map((x) => Hong.fromJson(x)));
+
+String hongToJson(List<Hong> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class Hong {
+  int? jobId;
+  String? memberName;
+  String? categoryName;
+  String? hongName;
+  String? content;
+  String? requestAddress;
+  String? requestTime;
+  String? silverPhoneNumber;
+  String? memberPhoneNumber;
+  String? status;
+  int? hongId;
+
+  Hong({
+     this.jobId,
+     this.memberName,
+     this.categoryName,
+     this.hongName,
+     this.content,
+     this.requestAddress,
+     this.requestTime,
+     this.silverPhoneNumber,
+     this.memberPhoneNumber,
+     this.status,
+     this.hongId,
+  });
+
+  factory Hong.fromJson(Map<String, dynamic> json) => Hong(
+    jobId: json["jobId"],
+    memberName: json["memberName"],
+    categoryName: json["categoryName"],
+    hongName: json["hongName"] ?? "",
+    content: json["content"],
+    requestAddress: json["requestAddress"],
+    requestTime: json["requestTime"],
+    silverPhoneNumber: json["silverPhoneNumber"],
+    memberPhoneNumber: json["memberPhoneNumber"],
+    status: json["status"],
+    hongId: json["hongId"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "jobId": jobId,
+    "memberName": memberName,
+    "categoryName": categoryName,
+    "hongName": hongName,
+    "content": content,
+    "requestAddress": requestAddress,
+    "requestTime": requestTime,
+    "silverPhoneNumber": silverPhoneNumber,
+    "memberPhoneNumber": memberPhoneNumber,
+    "status": status,
+    "hongId": hongId,
+  };
+}
+
 
