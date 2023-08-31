@@ -89,13 +89,14 @@ class APIService {
   }
 
   static Future<List<Hong>> GetHong() async {
+    print("GetHong");
     // final url = Uri.parse('$baseUrl/$jobs');
     // final response = await http.get(url, headers: header);
     // http://ec2-3-27-181-63.ap-southeast-2.compute.amazonaws.com:8080/jobs/hong/{hongId}
 
     Dio dio = Dio();
     final response = await dio.get('$baseUrl/$jobs/$hong');
-    // print(response.statusCode);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       // print(json.decode(response.data.map((x) => print(x))));
       print(response.data);
@@ -114,7 +115,7 @@ class APIService {
       // var myMap = response.data as List<dynamic>;
       //
       // var list = myMap.map((x) => Hong.fromJson(x));
-      print("list2");
+      // print("list2");
       //
       //     print(list);
       List<Hong> hongList = List<Hong>.from(response.data.map((x) => Hong.fromJson(x)));
@@ -122,35 +123,32 @@ class APIService {
       // print("test");
       // Hong hong = Hong.fromJson(response.data[0]);
 
-      print(hongList.length);
+      // print("honglist : " + hongList.length.toString());
       return hongList;
     }
 
     throw Error();
   }
 
-  static void PostJob(int categoryId, String content, String timestamp, int memberId, int silverId, String requestAddress) async {
+  static Future<void> PostJob(int categoryId, String content, int memberId, String silverPhoneNumber, String requestAddress) async {
     // final url = Uri.parse('$baseUrl/$jobs');
     // final response = await http.get(url, headers: header);
     // http://ec2-3-27-181-63.ap-southeast-2.compute.amazonaws.com:8080/jobs/hong/{hongId}
-
-    var formData = FormData.fromMap({
-      "categoryId": 1,
-      "content": "도움이 필요해요",
-      "timestamp": "2023-09-01T00:29:05.000+00:00",
-      "memberId": 2,
-      "silverId": 2,
-      "requestAddress": "서울 어딘가"
-    });
-
     Dio dio = Dio();
-    final response = await dio.post('$baseUrl/$jobs', data: formData);
+    final response = await dio.post('$baseUrl/$jobs', data: {
+    "categoryId": categoryId,
+    "content": content,
+    "memberId": memberId,
+    "silverPhoneNumber": silverPhoneNumber,
+    "requestAddress": requestAddress
+    });
 
     print(response.statusCode);
     if (response.statusCode == 200) {
       // final jsonData = jsonDecode(response.body);
       // Job job = Job.fromJson(response.data);
       // return job;
+      return;
     }
 
     throw Error();

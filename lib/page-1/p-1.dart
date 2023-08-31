@@ -20,8 +20,9 @@ class CallData
 int hongId = 1;
 
 String globalContent = "";
-String globalAddress=  "";
-String globalPrice = "";
+int globalMemberId = 0;
+String globalSilverPhoneNumber = "010-1234-5680";
+String globalRequestAddress = "";
 
 class Scene_P_1 extends StatefulWidget {
   @override
@@ -266,8 +267,8 @@ class _Scene_P_1State extends State<Scene_P_1> {
                                                 child: InkWell(
                                                   onTap: () {
                                                     globalContent = snapshot.data[index].content;
-                                                    globalAddress = snapshot.data[index].requestAddress;
-                                                    // globalPrice = snapshot.data[index].price;
+                                                    globalRequestAddress = snapshot.data[index].requestAddress;
+                                                    globalSilverPhoneNumber = snapshot.data[index].silverPhoneNumber;
 
                                                     setState(() {
 
@@ -808,7 +809,7 @@ class _Scene_P_1State extends State<Scene_P_1> {
                                     borderRadius: BorderRadius.circular(20*fem),
                                   ),
                                   child: Text(
-                                    globalAddress,
+                                    globalRequestAddress,
                                     style: SafeGoogleFont (
                                       'ABeeZee',
                                       fontSize: 20*ffem,
@@ -942,9 +943,18 @@ class _Scene_P_1State extends State<Scene_P_1> {
                                     child: Center(
                                       child: TextButton(
                                         onPressed: () {
-                                          // TODO 서버 데이터 호출
-                                          Navigator.popUntil(
-                                            context, ModalRoute.withName("/"));
+                                          FutureBuilder(
+                                            // TODO
+                                            future: APIService.PostJob(1, globalContent, globalMemberId, globalSilverPhoneNumber, globalRequestAddress),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                return Container();
+                                              }
+                                              return Container();
+                                            },
+                                          );
+                                          // Navigator.popUntil(
+                                          //   context, ModalRoute.withName("/"));
                                         },
                                         child: Text(
                                           '지원하기',
