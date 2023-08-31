@@ -25,13 +25,9 @@ class MyApp extends StatelessWidget {
 		debugShowCheckedModeBanner: false,
 		scrollBehavior: MyCustomScrollBehavior(),
 		theme: ThemeData(
-		primarySwatch: Colors.blue,
-		),
-		home: Scaffold(
-		body: SingleChildScrollView(
-			child: Scene_P_0(),
-		),
-		),
-	);
+				primarySwatch: Colors.blue,
+			),
+			home: Scene_P_0(),
+		);
 	}
 }

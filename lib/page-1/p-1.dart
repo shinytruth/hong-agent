@@ -39,9 +39,9 @@ class _Scene_P_1State extends State<Scene_P_1> {
     callData.add(CallData("test4", "time4", "서울시", "5,000원 "));
     callData.add(CallData("test5", "time5", "울산시", "6,000원 "));
 
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
           width: double.infinity,
           child: Container(
             // p1n3b (7:2233)
