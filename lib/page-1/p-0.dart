@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/page-1/p-1.dart';
 import 'package:myapp/utils.dart';
 
-class Scene extends StatelessWidget {
+class Scene_P_0 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double baseWidth = 428;
@@ -17,7 +18,7 @@ class Scene extends StatelessWidget {
           // p0xyX (7:3033)
           // padding: EdgeInsets.fromLTRB(0*fem, 10*fem, 0*fem, 0*fem),
           width: double.infinity,
-          decoration: BoxDecoration (
+          decoration: const BoxDecoration (
             color: Color(0xfff9fbfe),
           ),
           child: Column(
@@ -29,10 +30,10 @@ class Scene extends StatelessWidget {
                 width: double.infinity,
                 height: 87.79*fem,
                 decoration: BoxDecoration (
-                  color: Color(0xffffffff),
+                  color: const Color(0xffffffff),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0x3fc9c9c9),
+                      color: const Color(0x3fc9c9c9),
                       offset: Offset(0*fem, 6.5846147537*fem),
                       blurRadius: 5.4871792793*fem,
                     ),
@@ -60,8 +61,34 @@ class Scene extends StatelessWidget {
                 ),
               ),
               Container(
+                padding: EdgeInsets.fromLTRB(0*fem, 12.47*fem, 0*fem, 12.4*fem),
+                  child: Text(
+                    '진행 중 내역',
+                    style: SafeGoogleFont (
+                      'Inter',
+                      fontSize: 24*ffem,
+                      fontWeight: FontWeight.w700,
+                      height: 1.25*ffem/fem,
+                      letterSpacing: -0.48*fem,
+                      color: Color(0xff333333),
+                      ),
+                  ),
+              ),
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 400*fem,
+                  height: 200*fem,
+                  decoration: BoxDecoration (
+                    borderRadius: BorderRadius.circular(20*fem),
+                    border: Border.all(color: Color(0xffececec)),
+                    color: Color(0xffffffff),
+                  ),
+                ),
+              ),
+              Container(
                 // autogroupeozySnD (X52Vnf7voCY3dPhjXJeozy)
-                padding: EdgeInsets.fromLTRB(19*fem, 311.71*fem, 19*fem, 14.52*fem),
+                padding: EdgeInsets.fromLTRB(19*fem, 150.71*fem, 19*fem, 14.52*fem),
                 width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,8 +96,8 @@ class Scene extends StatelessWidget {
                     Center(
                       // ZM3 (7:3037)
                       child: Container(
-                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 311.5*fem),
-                        constraints: BoxConstraints (
+                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 220.5*fem),
+                        constraints: const BoxConstraints (
                           // maxWidth: 163*fem,
                         ),
                         child: Text(
@@ -82,7 +109,7 @@ class Scene extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             // height: 2.3166666667*ffem/fem,
                             fontStyle: FontStyle.italic,
-                            color: Color(0xff000000),
+                            color: const Color(0xff000000),
                           ),
                         ),
                       ),
@@ -99,7 +126,7 @@ class Scene extends StatelessWidget {
                         decoration: BoxDecoration (
                           boxShadow: [
                             BoxShadow(
-                              color: Color(0x26000000),
+                              color: const Color(0x26000000),
                               offset: Offset(0*fem, -4*fem),
                               blurRadius: 7*fem,
                             ),
@@ -110,11 +137,19 @@ class Scene extends StatelessWidget {
                           width: double.infinity,
                           height: double.infinity,
                           decoration: BoxDecoration (
-                            color: Color(0xff6750a4),
+                            color: const Color(0xff6750a4),
                             borderRadius: BorderRadius.circular(25*fem),
                           ),
                           child: Center(
-                            child: Center(
+                            child: TextButton(
+                              onPressed: () {
+                                // 버튼 눌렀을 때 두번째 페이지로 이동해야 함
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Scene_P_1()),
+                                );
+                              },
                               child: Text(
                                 '배정내역 조회하기',
                                 textAlign: TextAlign.center,
@@ -122,10 +157,10 @@ class Scene extends StatelessWidget {
                                   'ABeeZee',
                                   fontSize: 26*ffem,
                                   fontWeight: FontWeight.w400,
-                                  height: 0.7692307692*ffem/fem,
-                                  letterSpacing: 0.1000000015*fem,
+                                  // height: 0.7692307692*ffem/fem,
+                                  // letterSpacing: 0.1000000015*fem,
                                   fontStyle: FontStyle.italic,
-                                  color: Color(0xffffffff),
+                                  color: const Color(0xffffffff),
                                 ),
                               ),
                             ),
