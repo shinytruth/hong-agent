@@ -20,7 +20,7 @@ class CallData
 int hongId = 1;
 
 String globalContent = "";
-int globalMemberId = 0;
+int globalMemberId = 1;
 String globalSilverPhoneNumber = "010-1234-5680";
 String globalRequestAddress = "";
 
