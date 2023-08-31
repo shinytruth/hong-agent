@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/page-1/p-1.dart';
 import 'package:myapp/utils.dart';
+import 'package:myapp/API/APIService.dart';
 
 class Scene_P_0 extends StatelessWidget {
   @override
@@ -79,12 +80,35 @@ class Scene_P_0 extends StatelessWidget {
                 Center(
                   child: Container(
                     alignment: Alignment.center,
-                    width: 400*fem,
+                    width: 380*fem,
                     height: 200*fem,
                     decoration: BoxDecoration (
                       borderRadius: BorderRadius.circular(20*fem),
                       border: Border.all(color: Color(0xffececec)),
                       color: Color(0xffffffff),
+                    ),
+                    child: FutureBuilder(
+                      // TODO
+                      future: APIService.GetCategory(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Container(
+                            child: Text(
+                              snapshot.data!.message,
+                              textAlign: TextAlign.center,
+                              style: SafeGoogleFont (
+                                'Inter',
+                                fontSize: 24*ffem,
+                                fontWeight: FontWeight.w700,
+                                height: 1.25*ffem/fem,
+                                letterSpacing: -0.48*fem,
+                                color: Color(0xff1c1b1f),
+                              ),
+                            ),
+                          );
+                        }
+                        return Container();
+                      },
                     ),
                   ),
                 ),
